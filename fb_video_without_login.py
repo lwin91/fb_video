@@ -16,9 +16,12 @@ driver = webdriver.Chrome('C://chromedriver', chrome_options=options)
 
 def get_video_post_details(video_post):
 	driver.get(video_post)
-	views = driver.find_element_by_xpath('//span[@class="fcg"]').text.split()[0].replace('K', '000')
-	likes = driver.find_element_by_xpath('//span[contains(text(),"Likes")]').text.split()[0]
-	comments = driver.find_element_by_xpath('//span[contains(text(),"Comments")]').text.split()[0]
+	# views = driver.find_element_by_xpath('//span[@class="fcg"]').text.split()[0].replace('K', '000')
+	# likes = driver.find_element_by_xpath('//span[contains(text(),"Likes")]').text.split()[0]
+	# comments = driver.find_element_by_xpath('//span[contains(text(),"Comments")]').text.split()[0]
+	views = driver.find_element_by_xpath('//span[@class="fcg"]').text.split(':')[-1].replace(' тыс.', '000').replace(' mil', '000').replace('K', '000').replace(' B', '000').strip()
+	likes = driver.find_elements_by_xpath('//span[@class="_2u_j"]')[0].text.split(':')[-1].split()[0]
+	comments = driver.find_elements_by_xpath('//span[@class="_2u_j"]')[1].text.split(':')[-1].split()[0]
 	return [views, likes, comments]
 
 
